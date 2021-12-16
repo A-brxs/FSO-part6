@@ -3,8 +3,11 @@ const initialState = {
   status: 'hidden'
 }
 
+let notifTimer = ''
+
 const showNotification = notification => {
   console.log('THIS IS NOTIFCHANGE')
+  clearTimeout(notifTimer)
   return {
     type: 'SET_NOTIFICATION',
     msg: notification,
@@ -23,7 +26,7 @@ const hideNotification = () => {
 export const setNotification = ( notification, timeout ) => {
   return async dispatch => {
     dispatch(showNotification(notification))
-    await setTimeout(() => {
+    notifTimer = await setTimeout(() => {
       dispatch(hideNotification())
     }, timeout * 1000 )
   }
